@@ -8,10 +8,13 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
-        #map {
-            width: 1125px;
-            height: 896px;
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
         }
         </style>
         <title></title>
@@ -28,11 +31,12 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="data/Haras_1.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/HarasLote_1.js"></script>
         <script src="data/PerimetroUrbanoSJP_2.js"></script>
-        <script src="data/Rodovia_3.js"></script>
-        <script src="data/LimiteMunicipal_SJP_4.js"></script>
-        <script src="data/HidrografiaSJP_5.js"></script>
+        <script src="data/Rodovias_3.js"></script>
+        <script src="data/LimiteMunicipalSJP_4.js"></script>
+        <script src="data/Hidrografia_5.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
@@ -40,6 +44,18 @@
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -56,7 +72,7 @@
         });
         layer_GoogleSatellite_0;
         map.addLayer(layer_GoogleSatellite_0);
-        function pop_Haras_1(feature, layer) {
+        function pop_HarasLote_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
@@ -95,9 +111,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Haras_1_0() {
+        function style_HarasLote_1_0() {
             return {
-                pane: 'pane_Haras_1',
+                pane: 'pane_HarasLote_1',
                 opacity: 1,
                 color: 'rgba(227,26,28,1.0)',
                 dashArray: '',
@@ -110,20 +126,20 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Haras_1');
-        map.getPane('pane_Haras_1').style.zIndex = 401;
-        map.getPane('pane_Haras_1').style['mix-blend-mode'] = 'normal';
-        var layer_Haras_1 = new L.geoJson(json_Haras_1, {
+        map.createPane('pane_HarasLote_1');
+        map.getPane('pane_HarasLote_1').style.zIndex = 401;
+        map.getPane('pane_HarasLote_1').style['mix-blend-mode'] = 'normal';
+        var layer_HarasLote_1 = new L.geoJson(json_HarasLote_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Haras_1',
-            layerName: 'layer_Haras_1',
-            pane: 'pane_Haras_1',
-            onEachFeature: pop_Haras_1,
-            style: style_Haras_1_0,
+            dataVar: 'json_HarasLote_1',
+            layerName: 'layer_HarasLote_1',
+            pane: 'pane_HarasLote_1',
+            onEachFeature: pop_HarasLote_1,
+            style: style_HarasLote_1_0,
         });
-        bounds_group.addLayer(layer_Haras_1);
-        map.addLayer(layer_Haras_1);
+        bounds_group.addLayer(layer_HarasLote_1);
+        map.addLayer(layer_HarasLote_1);
         function pop_PerimetroUrbanoSJP_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -489,7 +505,7 @@
         });
         bounds_group.addLayer(layer_PerimetroUrbanoSJP_2);
         map.addLayer(layer_PerimetroUrbanoSJP_2);
-        function pop_Rodovia_3(feature, layer) {
+        function pop_Rodovias_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['Rod_Num'] !== null ? autolinker.link(feature.properties['Rod_Num'].toLocaleString()) : '') + '</td>\
@@ -576,9 +592,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Rodovia_3_0() {
+        function style_Rodovias_3_0() {
             return {
-                pane: 'pane_Rodovia_3',
+                pane: 'pane_Rodovias_3',
                 opacity: 1,
                 color: 'rgba(231,113,72,1.0)',
                 dashArray: '',
@@ -589,21 +605,21 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Rodovia_3');
-        map.getPane('pane_Rodovia_3').style.zIndex = 403;
-        map.getPane('pane_Rodovia_3').style['mix-blend-mode'] = 'normal';
-        var layer_Rodovia_3 = new L.geoJson(json_Rodovia_3, {
+        map.createPane('pane_Rodovias_3');
+        map.getPane('pane_Rodovias_3').style.zIndex = 403;
+        map.getPane('pane_Rodovias_3').style['mix-blend-mode'] = 'normal';
+        var layer_Rodovias_3 = new L.geoJson(json_Rodovias_3, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Rodovia_3',
-            layerName: 'layer_Rodovia_3',
-            pane: 'pane_Rodovia_3',
-            onEachFeature: pop_Rodovia_3,
-            style: style_Rodovia_3_0,
+            dataVar: 'json_Rodovias_3',
+            layerName: 'layer_Rodovias_3',
+            pane: 'pane_Rodovias_3',
+            onEachFeature: pop_Rodovias_3,
+            style: style_Rodovias_3_0,
         });
-        bounds_group.addLayer(layer_Rodovia_3);
-        map.addLayer(layer_Rodovia_3);
-        function pop_LimiteMunicipal_SJP_4(feature, layer) {
+        bounds_group.addLayer(layer_Rodovias_3);
+        map.addLayer(layer_Rodovias_3);
+        function pop_LimiteMunicipalSJP_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['gid'] !== null ? autolinker.link(feature.properties['gid'].toLocaleString()) : '') + '</td>\
@@ -621,9 +637,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_LimiteMunicipal_SJP_4_0() {
+        function style_LimiteMunicipalSJP_4_0() {
             return {
-                pane: 'pane_LimiteMunicipal_SJP_4',
+                pane: 'pane_LimiteMunicipalSJP_4',
                 opacity: 1,
                 color: 'rgba(255,255,255,1.0)',
                 dashArray: '',
@@ -636,24 +652,24 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_LimiteMunicipal_SJP_4');
-        map.getPane('pane_LimiteMunicipal_SJP_4').style.zIndex = 404;
-        map.getPane('pane_LimiteMunicipal_SJP_4').style['mix-blend-mode'] = 'normal';
-        var layer_LimiteMunicipal_SJP_4 = new L.geoJson(json_LimiteMunicipal_SJP_4, {
+        map.createPane('pane_LimiteMunicipalSJP_4');
+        map.getPane('pane_LimiteMunicipalSJP_4').style.zIndex = 404;
+        map.getPane('pane_LimiteMunicipalSJP_4').style['mix-blend-mode'] = 'normal';
+        var layer_LimiteMunicipalSJP_4 = new L.geoJson(json_LimiteMunicipalSJP_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_LimiteMunicipal_SJP_4',
-            layerName: 'layer_LimiteMunicipal_SJP_4',
-            pane: 'pane_LimiteMunicipal_SJP_4',
-            onEachFeature: pop_LimiteMunicipal_SJP_4,
-            style: style_LimiteMunicipal_SJP_4_0,
+            dataVar: 'json_LimiteMunicipalSJP_4',
+            layerName: 'layer_LimiteMunicipalSJP_4',
+            pane: 'pane_LimiteMunicipalSJP_4',
+            onEachFeature: pop_LimiteMunicipalSJP_4,
+            style: style_LimiteMunicipalSJP_4_0,
         });
-        bounds_group.addLayer(layer_LimiteMunicipal_SJP_4);
-        map.addLayer(layer_LimiteMunicipal_SJP_4);
-        function pop_HidrografiaSJP_5(feature, layer) {
+        bounds_group.addLayer(layer_LimiteMunicipalSJP_4);
+        map.addLayer(layer_LimiteMunicipalSJP_4);
+        function pop_Hidrografia_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['LAYER'] !== null ? autolinker.link(feature.properties['LAYER'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>LAYER</strong><br />' + (feature.properties['LAYER'] !== null ? autolinker.link(feature.properties['LAYER'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['Nome'] !== null ? autolinker.link(feature.properties['Nome'].toLocaleString()) : '') + '</td>\
@@ -683,9 +699,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_HidrografiaSJP_5_0() {
+        function style_Hidrografia_5_0() {
             return {
-                pane: 'pane_HidrografiaSJP_5',
+                pane: 'pane_Hidrografia_5',
                 opacity: 1,
                 color: 'rgba(166,206,227,1.0)',
                 dashArray: '',
@@ -696,20 +712,22 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_HidrografiaSJP_5');
-        map.getPane('pane_HidrografiaSJP_5').style.zIndex = 405;
-        map.getPane('pane_HidrografiaSJP_5').style['mix-blend-mode'] = 'normal';
-        var layer_HidrografiaSJP_5 = new L.geoJson(json_HidrografiaSJP_5, {
+        map.createPane('pane_Hidrografia_5');
+        map.getPane('pane_Hidrografia_5').style.zIndex = 405;
+        map.getPane('pane_Hidrografia_5').style['mix-blend-mode'] = 'normal';
+        var layer_Hidrografia_5 = new L.geoJson(json_Hidrografia_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_HidrografiaSJP_5',
-            layerName: 'layer_HidrografiaSJP_5',
-            pane: 'pane_HidrografiaSJP_5',
-            onEachFeature: pop_HidrografiaSJP_5,
-            style: style_HidrografiaSJP_5_0,
+            dataVar: 'json_Hidrografia_5',
+            layerName: 'layer_Hidrografia_5',
+            pane: 'pane_Hidrografia_5',
+            onEachFeature: pop_Hidrografia_5,
+            style: style_Hidrografia_5_0,
         });
-        bounds_group.addLayer(layer_HidrografiaSJP_5);
-        map.addLayer(layer_HidrografiaSJP_5);
+        bounds_group.addLayer(layer_Hidrografia_5);
+        map.addLayer(layer_Hidrografia_5);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Hidrografia_5.png" /> Hidrografia': layer_Hidrografia_5,'<img src="legend/LimiteMunicipalSJP_4.png" /> Limite Municipal SJP': layer_LimiteMunicipalSJP_4,'<img src="legend/Rodovias_3.png" /> Rodovias': layer_Rodovias_3,'<img src="legend/PerimetroUrbanoSJP_2.png" /> PerimetroU rbano SJP': layer_PerimetroUrbanoSJP_2,'<img src="legend/HarasLote_1.png" /> Haras / Lote': layer_HarasLote_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
         setBounds();
         </script>
     </body>
