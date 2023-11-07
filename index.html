@@ -35,12 +35,13 @@
         <script src="data/HarasLote_1.js"></script>
         <script src="data/PerimetroUrbanoSJP_2.js"></script>
         <script src="data/Rodovias_3.js"></script>
-        <script src="data/LimiteMunicipalSJP_4.js"></script>
-        <script src="data/Hidrografia_5.js"></script>
+        <script src="data/ConservaroAmbiental_4.js"></script>
+        <script src="data/LimiteMunicipalSJP_5.js"></script>
+        <script src="data/Hidrografia_6.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-25.70229358393712,-49.206325010327234],[-25.60310127664465,-49.081724382710405]]);
+        }).fitBounds([[-25.66646084834867,-49.134637001748295],[-25.65406180993711,-49.119061923296194]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -619,7 +620,72 @@
         });
         bounds_group.addLayer(layer_Rodovias_3);
         map.addLayer(layer_Rodovias_3);
-        function pop_LimiteMunicipalSJP_4(feature, layer) {
+        function pop_ConservaroAmbiental_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LAYER'] !== null ? autolinker.link(feature.properties['LAYER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nome'] !== null ? autolinker.link(feature.properties['Nome'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Fonte_Topo'] !== null ? autolinker.link(feature.properties['Fonte_Topo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tipo_Drena'] !== null ? autolinker.link(feature.properties['Tipo_Drena'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Regime'] !== null ? autolinker.link(feature.properties['Regime'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Compriment'] !== null ? autolinker.link(feature.properties['Compriment'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Fonte_Mape'] !== null ? autolinker.link(feature.properties['Fonte_Mape'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Data_Mapea'] !== null ? autolinker.link(feature.properties['Data_Mapea'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? autolinker.link(feature.properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Area'] !== null ? autolinker.link(feature.properties['Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ConservaroAmbiental_4_0() {
+            return {
+                pane: 'pane_ConservaroAmbiental_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(39,255,1,0.2980392156862745)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ConservaroAmbiental_4');
+        map.getPane('pane_ConservaroAmbiental_4').style.zIndex = 404;
+        map.getPane('pane_ConservaroAmbiental_4').style['mix-blend-mode'] = 'normal';
+        var layer_ConservaroAmbiental_4 = new L.geoJson(json_ConservaroAmbiental_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ConservaroAmbiental_4',
+            layerName: 'layer_ConservaroAmbiental_4',
+            pane: 'pane_ConservaroAmbiental_4',
+            onEachFeature: pop_ConservaroAmbiental_4,
+            style: style_ConservaroAmbiental_4_0,
+        });
+        bounds_group.addLayer(layer_ConservaroAmbiental_4);
+        map.addLayer(layer_ConservaroAmbiental_4);
+        function pop_LimiteMunicipalSJP_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['gid'] !== null ? autolinker.link(feature.properties['gid'].toLocaleString()) : '') + '</td>\
@@ -637,9 +703,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_LimiteMunicipalSJP_4_0() {
+        function style_LimiteMunicipalSJP_5_0() {
             return {
-                pane: 'pane_LimiteMunicipalSJP_4',
+                pane: 'pane_LimiteMunicipalSJP_5',
                 opacity: 1,
                 color: 'rgba(255,245,240,1.0)',
                 dashArray: '',
@@ -652,21 +718,21 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_LimiteMunicipalSJP_4');
-        map.getPane('pane_LimiteMunicipalSJP_4').style.zIndex = 404;
-        map.getPane('pane_LimiteMunicipalSJP_4').style['mix-blend-mode'] = 'normal';
-        var layer_LimiteMunicipalSJP_4 = new L.geoJson(json_LimiteMunicipalSJP_4, {
+        map.createPane('pane_LimiteMunicipalSJP_5');
+        map.getPane('pane_LimiteMunicipalSJP_5').style.zIndex = 405;
+        map.getPane('pane_LimiteMunicipalSJP_5').style['mix-blend-mode'] = 'normal';
+        var layer_LimiteMunicipalSJP_5 = new L.geoJson(json_LimiteMunicipalSJP_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_LimiteMunicipalSJP_4',
-            layerName: 'layer_LimiteMunicipalSJP_4',
-            pane: 'pane_LimiteMunicipalSJP_4',
-            onEachFeature: pop_LimiteMunicipalSJP_4,
-            style: style_LimiteMunicipalSJP_4_0,
+            dataVar: 'json_LimiteMunicipalSJP_5',
+            layerName: 'layer_LimiteMunicipalSJP_5',
+            pane: 'pane_LimiteMunicipalSJP_5',
+            onEachFeature: pop_LimiteMunicipalSJP_5,
+            style: style_LimiteMunicipalSJP_5_0,
         });
-        bounds_group.addLayer(layer_LimiteMunicipalSJP_4);
-        map.addLayer(layer_LimiteMunicipalSJP_4);
-        function pop_Hidrografia_5(feature, layer) {
+        bounds_group.addLayer(layer_LimiteMunicipalSJP_5);
+        map.addLayer(layer_LimiteMunicipalSJP_5);
+        function pop_Hidrografia_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2"><strong>LAYER</strong><br />' + (feature.properties['LAYER'] !== null ? autolinker.link(feature.properties['LAYER'].toLocaleString()) : '') + '</td>\
@@ -699,9 +765,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Hidrografia_5_0() {
+        function style_Hidrografia_6_0() {
             return {
-                pane: 'pane_Hidrografia_5',
+                pane: 'pane_Hidrografia_6',
                 opacity: 1,
                 color: 'rgba(166,206,227,1.0)',
                 dashArray: '',
@@ -712,22 +778,22 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Hidrografia_5');
-        map.getPane('pane_Hidrografia_5').style.zIndex = 405;
-        map.getPane('pane_Hidrografia_5').style['mix-blend-mode'] = 'normal';
-        var layer_Hidrografia_5 = new L.geoJson(json_Hidrografia_5, {
+        map.createPane('pane_Hidrografia_6');
+        map.getPane('pane_Hidrografia_6').style.zIndex = 406;
+        map.getPane('pane_Hidrografia_6').style['mix-blend-mode'] = 'normal';
+        var layer_Hidrografia_6 = new L.geoJson(json_Hidrografia_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Hidrografia_5',
-            layerName: 'layer_Hidrografia_5',
-            pane: 'pane_Hidrografia_5',
-            onEachFeature: pop_Hidrografia_5,
-            style: style_Hidrografia_5_0,
+            dataVar: 'json_Hidrografia_6',
+            layerName: 'layer_Hidrografia_6',
+            pane: 'pane_Hidrografia_6',
+            onEachFeature: pop_Hidrografia_6,
+            style: style_Hidrografia_6_0,
         });
-        bounds_group.addLayer(layer_Hidrografia_5);
-        map.addLayer(layer_Hidrografia_5);
+        bounds_group.addLayer(layer_Hidrografia_6);
+        map.addLayer(layer_Hidrografia_6);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/Hidrografia_5.png" /> Hidrografia': layer_Hidrografia_5,'<img src="legend/LimiteMunicipalSJP_4.png" /> Limite Municipal SJP': layer_LimiteMunicipalSJP_4,'<img src="legend/Rodovias_3.png" /> Rodovias': layer_Rodovias_3,'<img src="legend/PerimetroUrbanoSJP_2.png" /> PerimetroU rbano SJP': layer_PerimetroUrbanoSJP_2,'<img src="legend/HarasLote_1.png" /> Haras / Lote': layer_HarasLote_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/Hidrografia_6.png" /> Hidrografia': layer_Hidrografia_6,'<img src="legend/LimiteMunicipalSJP_5.png" /> Limite Municipal SJP': layer_LimiteMunicipalSJP_5,'<img src="legend/ConservaroAmbiental_4.png" /> Conservarção Ambiental': layer_ConservaroAmbiental_4,'<img src="legend/Rodovias_3.png" /> Rodovias': layer_Rodovias_3,'<img src="legend/PerimetroUrbanoSJP_2.png" /> Perimetro Urbano SJP': layer_PerimetroUrbanoSJP_2,'<img src="legend/HarasLote_1.png" /> Haras / Lote': layer_HarasLote_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
         setBounds();
         </script>
     </body>
